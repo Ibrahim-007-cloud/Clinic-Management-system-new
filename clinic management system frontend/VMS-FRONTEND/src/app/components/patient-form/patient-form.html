@@ -1,0 +1,39 @@
+<div class="container mt-4" style="max-width: 600px;">
+  <div class="card shadow-sm p-4">
+    <h3 class="mb-3">{{ isEditMode ? 'Edit Patient File' : 'New Patient Registration' }}</h3>
+    <form (ngSubmit)="savePatient()">
+      <div class="mb-3">
+        <label class="form-label">Patient Name</label>
+        <input type="text" [(ngModel)]="patient.patientName" name="patientName" class="form-control" required>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Age</label>
+          <input type="number" [(ngModel)]="patient.age" name="age" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Gender</label>
+          <select [(ngModel)]="patient.gender" name="gender" class="form-select" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Contact Number</label>
+        <input type="text" [(ngModel)]="patient.contact" name="contact" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Medical Issue / Problem</label>
+        <textarea [(ngModel)]="patient.problem" name="problem" class="form-control" rows="2" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Assigned Doctor</label>
+        <input type="text" [(ngModel)]="patient.doctorName" name="doctorName" class="form-control" required>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-success">{{ isEditMode ? 'Save Changes' : 'Complete Registration' }}</button>
+      </div>
+    </form>
+  </div>
+</div>
