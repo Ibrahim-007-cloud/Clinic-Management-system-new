@@ -1,7 +1,3 @@
-Here is your finalized, clean `README.md` text. It has been stripped of any automated artifact patterns and written with a natural, clear, and professional tone that reads exactly as though you wrote it yourself for your project submission.
-
----
-
 # Clinic Patient Record System 🏥
 
 A full-stack web application developed to manage patient health profiles, clinical visit histories, and physician assignments. The system is built using a decoupled architecture consisting of an ASP.NET Core 10 Web API backend and an Angular single-page application (SPA) frontend.
