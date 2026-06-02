@@ -1,0 +1,34 @@
+# ==========================================
+# 🌐 Angular Frontend Exclusions
+# ==========================================
+**/VMS-FRONTEND/node_modules/
+**/VMS-FRONTEND/.angular/
+**/VMS-FRONTEND/dist/
+**/VMS-FRONTEND/.sass-cache/
+**/VMS-FRONTEND/connect.lock
+**/VMS-FRONTEND/coverage/
+
+# ==========================================
+# 🖥️ .NET Backend Exclusions
+# ==========================================
+**/bin/
+**/obj/
+*.suo
+*.user
+*.sln.docstates
+
+# ==========================================
+# 💾 Local Databases & OS Artifacts
+# ==========================================
+*.db
+*.db-shm
+*.db-wal
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# 🔑 IDE Configuration Environments
+# ==========================================
+.vscode/
+.idea/
+*.launch
