@@ -1,0 +1,89 @@
+.form-page {
+  background: #F0F4F8;
+  min-height: 100vh;
+  padding: 32px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.form-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 0.5px solid #dce3ec;
+  padding: 32px 36px;
+  width: 100%;
+  max-width: 580px;
+}
+.form-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  padding-bottom: 18px;
+  border-bottom: 0.5px solid #dce3ec;
+}
+.form-card-header .icon-circle {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #E3F2FD;
+  display: flex; align-items: center; justify-content: center;
+  color: #1565C0; font-size: 20px;
+}
+.form-card-header h3 { font-size: 18px; font-weight: 600; color: #1a2535; margin: 0; }
+.form-card-header p  { font-size: 13px; color: #6b7a8d; margin: 2px 0 0; }
+
+.form-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #3a4a5c;
+  margin-bottom: 6px;
+  display: block;
+}
+.form-control, .form-select {
+  border: 0.5px solid #cdd5df;
+  border-radius: 7px;
+  padding: 9px 12px;
+  font-size: 14px;
+  width: 100%;
+  background: #f7f9fc;
+  color: #1a2535;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.form-control:focus, .form-select:focus {
+  border-color: #1565C0;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(21,101,192,0.1);
+}
+textarea.form-control { resize: vertical; min-height: 80px; }
+
+.btn-submit {
+  background: #1565C0;
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 8px;
+  transition: background 0.15s;
+}
+.btn-submit:hover { background: #0D47A1; }
+
+.btn-back {
+  background: #fff;
+  color: #1565C0;
+  border: 1px solid #1565C0;
+  border-radius: 7px;
+  padding: 11px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+}
+.btn-back:hover { background: #E3F2FD; }

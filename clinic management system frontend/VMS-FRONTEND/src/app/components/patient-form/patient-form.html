@@ -1,15 +1,23 @@
-<div class="container mt-4" style="max-width: 600px;">
-  <div class="card shadow-sm p-4">
-    <h3 class="mb-3">{{ isEditMode ? 'Edit Patient File' : 'New Patient Registration' }}</h3>
+<div class="form-page">
+  <div class="form-card">
+    <div class="form-card-header">
+      <div class="icon-circle">&#9829;</div>
+      <div>
+        <h3>{{ isEditMode ? 'Edit Patient File' : 'New Patient Registration' }}</h3>
+        <p>{{ isEditMode ? 'Update patient information below' : 'Fill in the details to register a patient' }}</p>
+      </div>
+    </div>
+
     <form (ngSubmit)="savePatient()">
       <div class="mb-3">
         <label class="form-label">Patient Name</label>
-        <input type="text" [(ngModel)]="patient.patientName" name="patientName" class="form-control" required>
+        <input type="text" [(ngModel)]="patient.patientName" name="patientName" class="form-control" placeholder="Full name" required>
       </div>
+
       <div class="row">
         <div class="col-md-6 mb-3">
           <label class="form-label">Age</label>
-          <input type="number" [(ngModel)]="patient.age" name="age" class="form-control" required>
+          <input type="number" [(ngModel)]="patient.age" name="age" class="form-control" placeholder="Years" required>
         </div>
         <div class="col-md-6 mb-3">
           <label class="form-label">Gender</label>
@@ -19,21 +27,26 @@
           </select>
         </div>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Contact Number</label>
-        <input type="text" [(ngModel)]="patient.contact" name="contact" class="form-control" required>
+        <input type="text" [(ngModel)]="patient.contact" name="contact" class="form-control" placeholder="03xxxxxxxxx" required>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Medical Issue / Problem</label>
-        <textarea [(ngModel)]="patient.problem" name="problem" class="form-control" rows="2" required></textarea>
+        <textarea [(ngModel)]="patient.problem" name="problem" class="form-control" rows="3" placeholder="Describe the medical condition..." required></textarea>
       </div>
-      <div class="mb-3">
+
+      <div class="mb-4">
         <label class="form-label">Assigned Doctor</label>
-        <input type="text" [(ngModel)]="patient.doctorName" name="doctorName" class="form-control" required>
+        <input type="text" [(ngModel)]="patient.doctorName" name="doctorName" class="form-control" placeholder="Doctor's name" required>
       </div>
-      <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-success">{{ isEditMode ? 'Save Changes' : 'Complete Registration' }}</button>
-      </div>
+
+      <button type="submit" class="btn-submit">
+        {{ isEditMode ? 'Save Changes' : 'Complete Registration' }}
+      </button>
+      <a class="btn-back" routerLink="/">← Back to Patient List</a>
     </form>
   </div>
 </div>

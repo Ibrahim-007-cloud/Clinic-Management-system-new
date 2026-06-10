@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common'; // Added ViewportScroller
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { PatientService, Patient } from '../../services/patient';
 
 @Component({
   selector: 'app-patient-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './patient-list.html',
   styleUrls: ['./patient-list.css']
 })
 export class PatientList implements OnInit {
   patients: Patient[] = [];
+  searchTerm = '';
 
-  constructor(private patientService: PatientService) {}
+  // Inject ViewportScroller into your constructor
+  constructor(
+    private patientService: PatientService,
+    private scroller: ViewportScroller
+  ) {}
 
   ngOnInit(): void {
     this.loadPatients();
@@ -25,11 +31,33 @@ export class PatientList implements OnInit {
     });
   }
 
+  get filteredPatients(): Patient[] {
+    if (!this.searchTerm.trim()) {
+      return this.patients;
+    }
+    const search = this.searchTerm.toLowerCase();
+    return this.patients.filter(p => 
+      p.patientName?.toLowerCase().includes(search) || 
+      p.problem?.toLowerCase().includes(search) ||
+      p.doctorName?.toLowerCase().includes(search) ||
+      p.id?.toString().includes(search)
+    );
+  }
+
   deletePatient(id: number | undefined): void {
     if (id && confirm('Are you sure you want to delete this record?')) {
       this.patientService.delete(id).subscribe(() => {
         this.loadPatients();
       });
+    }
+  }
+
+  // Robust, programmatic single-page smooth scroll method
+  navigateToSection(elementId: string): void {
+    if (elementId === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      this.scroller.scrollToAnchor(elementId);
     }
   }
 }

@@ -1,13 +1,93 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Clinic Patient Records</h2>
-    <button class="btn btn-primary" routerLink="/add-patient">+ Register New Patient</button>
+<nav class="medilab-header">
+  <a class="medilab-logo" (click)="navigateToSection('top')">♥ Medilab</a>
+  
+  <div class="medilab-nav d-none d-md-flex">
+    <a (click)="navigateToSection('top')">Home</a>
+    <a (click)="navigateToSection('why')">Services</a>
+    <a (click)="navigateToSection('patients')">Records</a>
+    <a (click)="navigateToSection('footer')">Contact</a>
+  </div>
+</nav>
+
+<div class="hero-section" id="top">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Welcome to Medilab</h1>
+    <p>We are a team of dedicated professionals managing clinic records with care and precision.</p>
+    <a class="btn-learn" (click)="navigateToSection('why')">Learn More</a>
+  </div>
+</div>
+
+<div class="why-section" id="why">
+  <div class="why-card">
+    <div class="why-icon">📋</div>
+    <h3>Patient Records</h3>
+    <p>Easily register, update, and manage complete patient profiles with medical history and assigned doctors.</p>
+  </div>
+  <div class="why-card">
+    <div class="why-icon">📈</div>
+    <h3>Live Statistics</h3>
+    <p>Track active cases, total registrations, and clinic performance metrics updated in real time.</p>
+  </div>
+  <div class="why-card">
+    <div class="why-icon">🕑</div>
+    <h3>Quick Access</h3>
+    <p>Find any patient instantly with smart search and take action with one-click edit or delete controls.</p>
+  </div>
+</div>
+
+<div class="promo-section container-fluid p-0">
+  <div class="row g-0 align-items-stretch">
+    <div class="col-md-6 promo-image">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1470&auto=format&fit=crop" alt="Medical professionals evaluating data" />
+    </div>
+    <div class="col-md-6 d-flex flex-column justify-content-center">
+      <div class="promo-text">
+        <span class="promo-badge">Why Choose Medilab</span>
+        <h2>Advanced Clinic Management for Modern Healthcare</h2>
+        <p>Medilab provides healthcare professionals with the tools they need to manage patient records efficiently.</p>
+        <ul class="promo-list">
+          <li>✔ Secure and centralized patient records</li>
+          <li>✔ Real-time case tracking and updates</li>
+        </ul>
+        <a class="btn-promo" routerLink="/add-patient">Get Started →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="page-body" id="patients">
+  <div class="hero-bar">
+    <div>
+      <h2>Clinic Patient Records</h2>
+      <p>Manage and track all registered patients</p>
+    </div>
+    <a class="btn-register" routerLink="/add-patient">+ Register New Patient</a>
   </div>
 
-  <div class="card shadow-sm">
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-label">Total Patients</div>
+      <div class="stat-value">{{ filteredPatients.length }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Active Cases</div>
+      <div class="stat-value">{{ filteredPatients.length }}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Registered Today</div>
+      <div class="stat-value">{{ filteredPatients.length }}</div>
+    </div>
+  </div>
+
+  <div class="patient-table-card">
+    <div class="table-card-header">
+      <span>Patient Directory</span>
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Search patients..." />
+    </div>
     <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
-        <thead class="table-dark">
+      <table class="medilab-table">
+        <thead>
           <tr>
             <th>ID</th>
             <th>Name</th>
@@ -16,28 +96,66 @@
             <th>Contact</th>
             <th>Medical Problem</th>
             <th>Assigned Doctor</th>
-            <th class="text-center">Actions</th>
+            <th style="text-align:center">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let p of patients">
-            <td><strong>#{{p.id}}</strong></td>
-            <td>{{p.patientName}}</td>
-            <td>{{p.age}}</td>
-            <td><span class="badge bg-secondary">{{p.gender}}</span></td>
-            <td>{{p.contact}}</td>
-            <td>{{p.problem}}</td>
-            <td><code>Dr. {{p.doctorName}}</code></td>
-            <td class="text-center">
-              <button class="btn btn-sm btn-warning me-2" [routerLink]="['/edit-patient', p.id]">Edit</button>
-              <button class="btn btn-sm btn-danger" (click)="deletePatient(p.id)">Delete</button>
+          <tr *ngFor="let p of filteredPatients">
+            <td><strong>#{{ p.id }}</strong></td>
+            <td>{{ p.patientName }}</td>
+            <td>{{ p.age }}</td>
+            <td>
+              <span class="badge" [ngClass]="p.gender === 'Female' ? 'badge-female' : 'badge-male'">
+                {{ p.gender }}
+              </span>
+            </td>
+            <td>{{ p.contact }}</td>
+            <td>{{ p.problem }}</td>
+            <td><span class="doctor-name">Dr. {{ p.doctorName }}</span></td>
+            <td style="text-align:center; white-space: nowrap;">
+              <button class="btn-edit" [routerLink]="['/edit-patient', p.id]">Edit</button>
+              <button class="btn-delete" (click)="deletePatient(p.id)">Delete</button>
             </td>
           </tr>
-          <tr *ngIf="patients.length === 0">
-            <td colspan="8" class="text-center text-muted py-4">No patient profiles found in database. Click Register above to add one!</td>
+          <tr *ngIf="filteredPatients.length === 0" class="empty-row">
+            <td colspan="8">No matching patients found.</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<footer class="medilab-footer" id="footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>♥ Medilab</h4>
+      <p>A modern clinic management system designed to streamline patient records.</p>
+      <div class="footer-contact-item">📍 E-9 Islamabad, Pakistan</div>
+      <div class="footer-contact-item">✉ info&#64;medilab.com</div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a (click)="navigateToSection('top')">Home</a></li>
+        <li><a (click)="navigateToSection('why')">Services</a></li>
+        <li><a (click)="navigateToSection('patients')">Patient Records</a></li>
+        <li><a (click)="navigateToSection('footer')">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Services</h4>
+      <ul>
+        <li><a href="#">Patient Registration</a></li>
+        <li><a href="#">Medical Records</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>About System</h4>
+      <p>Medilab Clinic Management System.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© Copyright 2026 Medilab. All Rights Reserved.</span>
+  </div>
+</footer>
