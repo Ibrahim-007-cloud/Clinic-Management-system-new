@@ -97,3 +97,4 @@ ng serve --open
 
 
 3. Once the build completes, your web browser will automatically open up the active patient management dashboard at `http://localhost:4200/`.
+4. node node_modules/@angular/cli/bin/ng serve
